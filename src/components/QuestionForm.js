@@ -10,6 +10,12 @@ function QuestionForm(props) {
     correctIndex: 0,
   });
 
+  const formDataRevised = {
+    prompt: formData.prompt,
+    answers: [formData.answer1, formData.answer2, formData.answer3, formData.answer4],
+    correctIndex: formData.correctIndex
+  }
+
   function handleChange(event) {
     setFormData({
       ...formData,
@@ -19,7 +25,15 @@ function QuestionForm(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(formData);
+    console.log("before POST:", formData);
+    const configObj = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formDataRevised)
+    }
+    fetch("http://localhost:4000/questions", configObj)
+      .then(r => r.json())
+      .then(questionData => { console.log("after POST:", questionData); props.onAddQuestion(questionData) })
   }
 
   return (
