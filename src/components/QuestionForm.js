@@ -25,7 +25,6 @@ function QuestionForm(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("before POST:", formData);
     const configObj = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,7 +32,7 @@ function QuestionForm(props) {
     }
     fetch("http://localhost:4000/questions", configObj)
       .then(r => r.json())
-      .then(questionData => { console.log("after POST:", questionData); props.onAddQuestion(questionData) })
+      .then(questionData => props.onAddQuestion(questionData))
   }
 
   return (

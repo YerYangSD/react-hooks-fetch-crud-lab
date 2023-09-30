@@ -13,6 +13,11 @@ function App() {
       .then(questionData => setQuestions(questionData))
   }, [])
 
+  function handleDeleteQuestion(id) {
+    const deletedQuestionList = questions.filter((question) => question.id !== id)
+    setQuestions(deletedQuestionList)
+  }
+
   function handleAddQuestion(newQuestion) {
     setQuestions([...questions, newQuestion])
   }
@@ -20,7 +25,7 @@ function App() {
   return (
     <main>
       <AdminNavBar onChangePage={setPage} />
-      {page === "Form" ? <QuestionForm onAddQuestion={handleAddQuestion} /> : <QuestionList questions={questions} />}
+      {page === "Form" ? <QuestionForm onAddQuestion={handleAddQuestion} /> : <QuestionList questions={questions} onDeleteQuestion={handleDeleteQuestion} />}
     </main>
   );
 }
