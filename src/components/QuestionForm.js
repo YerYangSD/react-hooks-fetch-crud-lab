@@ -33,6 +33,14 @@ function QuestionForm(props) {
     fetch("http://localhost:4000/questions", configObj)
       .then(r => r.json())
       .then(questionData => props.onAddQuestion(questionData))
+    setFormData({
+      prompt: "",
+      answer1: "",
+      answer2: "",
+      answer3: "",
+      answer4: "",
+      correctIndex: 0,
+    })
   }
 
   return (

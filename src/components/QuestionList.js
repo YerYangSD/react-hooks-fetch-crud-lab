@@ -1,17 +1,18 @@
 import React from "react";
 import QuestionItem from "./QuestionItem";
 
-function QuestionList({ questions, onDeleteQuestion }) {
+function QuestionList({ questions, onDeleteQuestion, onUpdateQuestion }) {
 
   function handleDeleteClick(id) {
     fetch(`http://localhost:4000/questions/${id}`, {
       method: "DELETE"
     })
-    onDeleteQuestion(id)
+      .then(r => r.json())
+      .then(() => onDeleteQuestion(id))
   }
 
   const listOfQuestion = questions.map((question) =>
-    <QuestionItem key={question.id} question={question} onDeleteClick={handleDeleteClick} />
+    <QuestionItem key={question.id} question={question} onDeleteClick={handleDeleteClick} onUpdateQuestion={onUpdateQuestion} />
   )
 
   return (
